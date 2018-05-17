@@ -1,0 +1,1201 @@
+复习：
+第三阶段课程：
+(1)AJAX —— 8.5
+(2)HTML5 —— 7
+(3)Boot —— 6
+
+
+ 
+面试题：HTML5添加了哪些新标签？废弃了哪些标签？
+新添了哪些属性？废弃了哪些属性？	 
+
+
+1.HTML5新特性
+  (1)新标签和新属性
+  (2)表单2.0
+  (3)视频和音频
+  (4)Canvas绘图
+  (5)SVG绘图
+  (6)地理定位
+  (7)拖放API
+  (8)WebWorker
+  (9)WebStorage
+  (10)WebSocket
+
+
+今日目标
+(1)表单新特性——新的input type —— 掌握
+(2)表单新特性——新的表单元素 —— 了解
+(3)表单新特性——新的元素属性 —— 难点
+
+1.前端常用的开发工具
+  (1)轻量级：小、快、功能少，如Editplus、Notepad++、Vim
+  (2)中量级：大小、功能适中，如SublimeText
+  (3)重量级：大、慢、功能丰富，如AptanaStudio(Eclipse)、WebStorm(IntellJ IDEA)、Dreamweaver
+
+  修改导航条的字体大小：
+  File -> Settings -> Appearance -> Override Font...
+  修改编辑器中的代码字体大小：
+     
+
+  常用快捷键：				10:10
+	Ctrl+Alt+↓	复制当前行
+	Atl+↑/↓		移动当前行
+	Ctrl+/		注释当前行
+	Ctrl+D		删除当前行
+	Ctrl+Alt+L	格式化当前文件中的所有代码
+  开始多行编辑：
+	Alt+鼠标左键点击
+  退出多行编辑：
+	ESC或鼠标左键
+
+
+2.表单2.0——新的input type
+  <input type="text">
+  HTML4已有的input type：
+	text、password、radio、checkbox、hidden、file、submit、reset、button、image
+  HTML5新增的input type：
+	email：在表单提交时提供了格式验证功能，要求@左右各有一个字符即可，错误提示信息可以定制，但外观无法定制（是窗口）
+	<input type="email">
+	number：呈现一个数字输入框，在提交时会验证数字格式，使用min、max、step指定最小值、最大值、步长
+	<input type="number" min="18" max="60" step="2">
+	url：提供了URL验证输入框，只要满足字母+冒号即可
+	<input type="url">
+	tel：提供了电话号码输入框，在手机浏览器中会弹出数字模拟键盘
+	<input type="tel">
+	search：显示一个搜索框，在手机浏览器中会在模拟键盘右下角显示“搜索”按钮
+	range：显示为一个滑块组件(数值选择组件)，使用min、max、step指定最小值、最大值、步长
+	<input type="range" min="18" max="60" step="2">
+练习：使用滑块改变目标的背景颜色
+	      
+	color：显示一个颜色选择器——浏览器使用操作系统自带的颜色选择框
+	date：显示一个日期选择器——FF未实现
+	month：显示一个月份选择器——FF未实现
+	week：显示一个星期选择器——FF未实现
+	提示：上述四个输入框项目中暂时先别用——用jQuery插件代替即可。
+
+
+3.表单2.0 —— 四个新的表单元素
+  HTML4提供的表单元素——与用户交互，实现输入/提交：
+ 	input、select/option、textarea、button
+
+  HTML5提供的新表单元素——仅用于数据展示，不能提交：
+  (1)datalist：数据列表
+	可用于为另一个输入框提供静态的输入建议
+	<datalist id="my-list">
+		<option>XXXX</option>
+	</datalist>
+	<input type="text" list="my-list">
+
+  (2)progress：进度条
+	用于显示某个过程的进度信息，若不指定value，则左右无限滚动；若指定了value，则固定为指定的值
+	<progress min="0" max="1" value="0.5"></progress>
+	练习：使用定时器，让进度条动起来（从0~1） 
+
+  (3)meter：刻度尺、度量衡
+	通过不同的颜色显示指定的数值在哪个范围“最优”-“合理”-“危险”范围：
+	最优值在上下限之间：黄-绿-黄
+	最优值在下限之下：绿-黄-红
+	最优值在上限之上：红-黄-绿
+	<meter min="0" max="100" low="30" high="70" optimum="50" value="60"></meter>
+
+  (4)output：输出
+	外观效果与普通的span一样。是语义标签，表示此处的内容是一个计算后的结果的输出。一般可以使用JS根据其它输入域值的改变修改output中的内容。
+	小计：<output>￥30.00</output>
+
+
+3.表单2.0——表单元素的新属性
+  HTML4表单元素的属性：
+	id、style、title、class、name、value、type、checked、selected、disabled
+  HTML5中表单元素的新属性：
+	(1)placeholder：占位符
+	  用于在输入框中显示提示性文字，与value没有任何关系！
+	(2)autofocus：自动获得输入焦点
+	  指定当前元素获得输入焦点
+	(3)autocomplete：是否启用自动补全功能
+	  <input autocomplete="off">
+	(4)multiple：多个/多项
+	  用于指定input type="file/email"可以有多个输入项，使用英文逗号分隔
+	  <input type="email" multiple>	
+     (5)form：表单
+	  用于指定当前元素(放在表单外部)从属于哪个表单		
+	   <form id="f1"></form>
+	   <input form="f1">
+     ======================================
+	下面的是与输入验证相关属性 —— 难点
+	(6)required：必填
+	  指定当前输入域内容不能为空
+  	(7)minlength：最小长度
+	  限定当前输入域中字符最少个数——不是H5标准属性
+	(8)maxlength：最大长度
+	  限定当前输入域中字符最大个数
+	(9)min：最小值
+	  限定当前数字输入域中数值最小值
+	(10)max：最大值
+	  限定当前数字输入域中数值最大值
+	(11)pattern：（正则）样式
+	  限定当前输入域中必须输入符合指定正则表达式的值
+	  <input name="phone" pattern="1[3578]\d{9}">
+
+
+5.总结：HTML5新特性 —— 表单新特性			
+  (1)新的input type —— 10 —— 暂时谨慎使用
+	email、number、url、tel、search、range、color、date、month、week
+  (2)新的表单元素 —— 4 —— 暂时不要用
+	datalist、progress、meter、output
+  (3)表单元素的新属性 —— 11 —— 重点掌握
+	placeholder、autofocus、autocomplete、multiple、form、
+	required、minlength、maxlength、min、max、pattern
+
+  上述新特性中，哪些可能弹出错误提示消息——9个？
+
+
+6.使用HTML5新特性如何自定义错误提示消息 —— 难点 & 一般重要
+ HTML5为所有的表单元素添加了一个JS属性：input.validity（有效性）： {
+	valid	:			true	//当前输入是否有效
+	badInput:			false	//输入无效，如number框输入abc
+	patternMismatch:	false	//正则表达式验证失败
+	rangeOverflow: 	false	//输入值超过max的限定
+	rangeUnderflow:	false	//输入值小于min的限定
+	tooLong :			false	//输入的字符数超过maxlength
+	tooShort :  		false	//输入的字符数小于minlength
+	stepMismatch : 	false	//输入的数字不符合step限制
+	typeMismatch :	false	//输入值不符合email、url的验证
+	valueMissing :		false	//未输入值，违反了required要求
+	customError : 		false	//是否存在自定义错误
+}
+  上述属性值的特性：
+  (1)只要有一个验证方面错 误，某个属性就为true，valid值为false
+  (2)只有没有任何验证错误，所有的属性都为false，valid才能为true
+  (3)上述的每个错误在浏览器内部都有一个预定义的错误提示消息
+  (4)所有的错误消息中，只要存在“自定义的错误消息”，浏览器只显示自定义的错误消息，优先级高于浏览器预定义的错误消息
+  (5)设置自定义错误消息的方法：
+	input.setCustomValidity('错误提示消息'); 
+	//input.validity.customError:true
+
+	取消自定义错误消息的方法：
+	input.setCustomValidity(""); 
+	//input.validity.customError:false
+
+
+课后练习：
+在输入域失去焦点时，使用其validity属性的各个布尔类型的值，验证用户的输入是否合法。
+当输入域失去焦点时，要在后面显示验证消息；
+当表单提交时，若有错误，也应该显示自定义错误消息；
+
+下面的效果图可以放大。
+     
+      
+
+
+
+
+day02 
+复习：
+HTML5新特性：
+(1)新的语义标签和属性
+(2)表单新特性
+	1)新的input type - 10
+	  email、number、url、tel、search、range、color、date、month、week
+	2)新的表单元素 - 4
+	  datalist、progress、meter、output
+	3)表单元素的新属性 - 11
+	  placeholder、autofocus、autocomplete、multiple、form
+      ---------------------------------
+      required、minlength、maxlength、min、max、step、pattern
+(3)视频和音频
+(4)Canvas绘图
+(5)SVG绘图
+(6)地理定位
+(7)拖放API
+(8)WebWorker
+(9)WebStorage
+(10)WebSocket
+
+今日目标：
+(1)视频和音频——掌握！
+(2)Canvas绘图——难点&超重点！
+
+1.Flash被HTML5取代
+  Flash绘图 —— Canvas/SVG绘图
+  Flash动画 —— Canvas/SVG绘图+定时器
+  Flash音视频 —— Video/Audio标签
+  Flash存储 —— WebStorage
+
+2.HTML5新特性——视频播放
+  H5提供的VIDEO标签默认是一个300*150的inline-block。使用方法：
+  <video src="x.mp4">
+    您的浏览器不支持VIDEO标签
+  </video>
+
+  <video>
+    <source src="x.mp4">
+    <source src="x.ogg">
+    <source src="x.webm">
+    您的浏览器不支持VIDEO标签
+  </video>
+
+Video标签/对象常用属性：
+	autoplay: false，是否自动播放
+	controls: false，是否显示播放控件
+	currentTime: 3.293401，当前播放到哪1秒
+	duration: 60.041667，总时长
+	loop: false，是否循环播放
+   	paused:  当前是否处于暂停状态
+	playbackRate: 1  播放速率，可以是0.x，也可以是2、3...
+ 	poster: ''，播放第一帧之前显示的电影海报
+	muted: false，是否静音
+	volume: 1, 视频音量(0~1)——对象属性
+	preload：如何预加载视频的内容，三个可选值：
+			auto： 预加载视频元数据并缓存一定的播放内容
+			metadata：仅预加载视频元数据(宽高、时长、第一帧)
+			none: 不预加载任何内容
+Video标签/对象常用方法：
+	play() 让视频开始播放
+	pause()	让视频暂停播放
+Video标签/对象常用事件：
+	onplay: 当视频开始播放时触发
+	onpause: 当视频刚一暂停时触发
+
+练习：
+  不使用Video的播放控件，自定义播放/暂停的按钮，点击就播放，再点击就暂停；当鼠标离开视频区域，隐藏该按钮
+  提示：
+  (1)按钮需要绝对定位，父容器相对定位；
+  (2)鼠标移入移出应该使用onmouseenter和onmouseleave，而不是onmouseover和onmouseout
+
+  当视频一暂停(不论如何触发的)，就显示一个广告图片；视频一播放，广告图片隐藏
+
+3.HTML5新特性——音频播放
+  H5提供的VIDEO标签默认是一个300*150的inline-block。使用方法：
+  <audio src="x.mp3">
+    您的浏览器不支持AUDIO标签
+  </ audio >
+
+  <audio>
+    <source src="x.mp3">
+    <source src="x.ogg">
+    <source src="x.wav">
+    您的浏览器不支持AUDIO标签
+  </audio>
+
+Audio标签/对象常用属性：
+	autoplay: false，是否自动播放
+	controls: false，是否显示播放控件
+	currentTime: 3.293401，当前播放到哪1秒
+	duration: 60.041667，总时长
+	loop: false，是否循环播放
+   	paused:  当前是否处于暂停状态
+	playbackRate: 1  播放速率，可以是0.x，也可以是2、3...
+	muted: false，是否静音
+	volume: 1, 音频音量(0~1)——对象属性
+	preload：如何预加载音频的内容，三个可选值：
+			auto： 预加载音频元数据并缓存一定的播放内容
+			metadata：仅预加载音频元数据(时长)
+			none: 不预加载任何内容
+Audio标签/对象常用方法：
+	play() 让音频开始播放
+	pause()	让音频暂停播放
+Audio标签/对象常用事件：
+	onplay: 当音频开始播放时触发
+	onpause: 当音频刚一暂停时触发
+
+练习：使用复选框控制背景音乐的播放和暂停
+  	 
+挑战性需求：暂停和播放音乐时，声音淡入&淡出，提示：使用定时器修改音频的volume属性。
+
+说明：
+(1)iOS中Safari默认不支持AUDIO标签！只能使用VIDEO来代替。
+(2)<body bgsound="x.mp3">此方法不是HTML标准方法，只有老IE支持，且不能灵活控制。
+
+
+
+4.Web领域可以使用的绘图技术
+  (1)WebGL —— 强大，早已出现，不是HTML标准
+  (2)SVG —— 早已出现，纳入HTML5标准
+  (3)Canvas —— 最近出现，是HTML5标准
+  
+  网页绘图可以实现的功能：			
+  (1)实时走势图
+  (2)统计图表
+  (3)在线画图板
+  (4)地图
+  (5)游戏
+
+ 
+Canvas绘图两个难点：
+(1)方法名多，不好记忆
+(2)坐标点值计算——小学数学+二次方程+三角函数	 
+
+5.HTML5新特性之三——Canvas绘图技术
+  Canvas：画布，使用画笔可以在画布绘图。Canvas元素是一个300*150的inline-block。
+  注意：Canvas的宽和高不能使用CSS样式来设定！
+  <canvas id="c" width="500" height="100">
+  	您的浏览器Canvas标签
+  </canvas>
+  
+  //Canvas绘图技术属于JS绘图技术
+  var ctx = c9.getContext('2d');   //获取画布上的画笔——绘图上下文对象
+  绘图上下文对象常用的属性：
+	fillStyle: '#000'		填充样式
+	strokeStyle:'#000'	轮廓/描边样式
+	lineWidth: 1		描边宽度	
+	font: "10px sans-serif"	字体
+	textAlign: 'start'		文本对齐
+	textBaseline: 'alphabetic'	文本基线
+	shadowColor: 'rgba(0,0,0,0)	阴影颜色
+	shadowBlur: 0				阴影模糊半径
+	shawdowOffsetX: 0			阴影的水平偏移量
+	shawdowOffsetY: 0
+
+  绘图上下文对象常用的方法：
+	(1)绘制矩形
+  	(2)绘制文本
+	(3)绘图路径
+	(4)绘图图像
+
+
+	 
+6.使用Canvas绘图上下文绘制矩形
+  注意：矩形的定位点在自己的左上角
+  ctx.fillStyle = '#000';		填充颜色
+  ctx.strokeStyle = '#000';	描边颜色
+  ctx.lineWidth = 1;		描边线宽
+
+  ctx.fillRect(x, y, w, h)		填充一个矩形
+  ctx.strokeRect(x, y, w, h)	描边一个矩形
+  ctx.clearRect(x, y, w, h)		清除一个矩形范围内所有的内容
+
+练习：创建一个画布，获得画笔对象，开始绘制：  100*80
+  (1)在左上角描边一个矩形，默认样式
+  (2)在右上角填充一个矩形，默认样式
+  (3)在左下角描边一个矩形，红色，线宽为10
+  (4)在右下角填充一个矩形，绿色
+  (5)在画布中央描边+填充一个矩形，蓝边+黄心	
+  ---------------------------------------------------
+  (6)再创建一个画布，获得画笔对象，绘制一个矩形，让这个矩形从左边移动右边，再移回来，.....   提示：使用定时器，不停的绘制，每次都要修改X坐标
+  (7) 再创建一个画布，获得画笔对象，绘制一个矩形，让这个矩形从上边移动下边，再移回来，.....   
+  (8) 再创建一个画布，获得画笔对象，绘制一个矩形，让这个矩形从左上边移动右下边，走出30度角，碰到某个边立即反弹      
+
+
+   
+7.使用Canvas绘图上下文绘制文本
+  注意：字符串的定位点在文本基线的最左端
+	ctx.textBaseline = 'alphabetic'	//文本基线，top / bottom / middle
+	ctx.font = "10px sans-serif";	字体大小
+
+	ctx.fillText( txt, x, y )			填充文字
+	ctx.strokeText( txt, x, y )		描边文字
+	ctx.measureText(txt).width	基于当前的字体设置，测量指定文本的总宽度
+
+练习：
+(1)在画布的左下角描边一段文本，默认样式
+(2)在画布的右下角描边一段文本，使用红色
+(3)在画布正中央填充+描边一段文本，蓝色描边+黄色填充
+(4)在画布中绘制从反复从左侧出现的一段文本
+
+
+8.为图形添加阴影
+  ctx.shadowColor = 'rgba(255,255,0,1)';
+  ctx.shadowBlur = 5;
+  ctx.shadowOffsetX = 5;
+  ctx.shadowOffsetY = 5;
+
+9.为图形添加渐变色样式
+  创建线性渐变对象：
+  var g = ctx.createLinearGradient(50,150,450,150);
+  g.addColorStop(0, '#f00');		//添加颜色点
+  g.addColorStop(0.5, '#ff0');		//添加颜色点
+  g.addColorStop(1, '#0f0');		//添加颜色点
+
+  将渐变对象应用于填充样式或描边样式
+  ctx.fillStyle = g;
+  ctx.strokeStyle = g;
+
+课后练习：
+(1)使用视频做元素的背景
+ 
+  提示：Video自动播放、循环播放、静音，绝对定位到目标元素下面，z-index为负值即可
+
+
+(2)使用AJAX从服务器端的PHP页面获取如下的JSON数据：
+ [
+	{"label": "部门1", "value":300},
+	{"label": "部门2", "value":500},
+	{"label": "部门3", "value":150},
+	{"label": "部门4", "value":400},
+	{"label": "部门5", "value":550},
+	{"label": "部门6", "value":250}
+]
+根据这些数据，绘制出如下图所示的统计图：
+   
+  提示：为简化起见，可以把value值看做每个柱的高度。
+
+
+
+
+day03
+复习：
+HTML5新特性
+(1)新的语义标签
+(2)表单新特性
+(3)视频和音频
+	<video src=""></video>
+	<audio src=""></audio>
+(4)Canvas绘图
+	<canvas id="c" width="500" height="400"></canvas>
+	var ctx = c.getContext('2d');
+	绘制矩形、文字、阴影、渐变色
+	绘制路径、绘制图像
+(5)SVG绘图
+(6)地理定位
+(7)拖放API
+(8)WebWorker
+(9)WebStorage
+(10)WebSocket
+
+
+今日目标：
+(1)使用Canvas绘制路径 —— 重点
+(2)使用Canvas绘制图像 —— 重点
+(3)使用第三方绘图框架 —— Chart.js —— 掌握
+
+1.复习：使用Canvas绘制矩形
+  ctx.strokeRect()
+  ctx.fillRect()
+  ctx.clearRect()
+
+2.复习：使用Canvas绘制文本
+  ctx.strokeText()
+  ctx.fillText()
+  ctx.measureText(txt).width
+
+3.使用Canvas绘制路径（Path）
+  路径：类似于PS中的钢笔工具，指定多个锚点，绘制任意形状的线条——路径本身不可见，有三个用途：
+  (1)对路径进行描边：  ctx.stroke()
+  (2)对路径进行填充：  ctx.fill()
+  (3)使用路径进行裁剪：  ctx.clip()
+创建锚点的相关方法：
+  ctx.beginPath( )		开始新路径
+  ctx.closePath()		闭合路径
+  ctx.moveTo(x, y)		移动到某点
+  ctx.lineTo(x,y)		从上一点到指定点绘直线路径
+  ctx.arc(x,y, r)			绘制拱形(圆形的一部分)路径
+  
+  ctx.ellipse(...)			绘制拱形(椭圆的一部分)路径
+  ctx.bezierCurveTo()	绘制贝塞尔曲线(任意线条)
+
+练习：
+(1)使用直线路径绘制一个坐标轴		
+	 
+(2)使用圆形路径绘制可以前进(从12点开始)的进度条		
+    
+(3)创建一个函数，openMouth()，在画布上绘制如下的图形：
+	 
+(4)创建一个函数，closeMouth()，在画布上绘制如下的图形：
+	 
+
+4.使用Canvas绘制图像
+  提示：图像的定位点在自身的左上角每次要减去自身宽高的一半
+  ctx.drawImage(img, x, y);		使用默认的宽高绘制图像
+  ctx.drawImage(img, x, y, w, h); 	使用指定的宽高绘制图像
+
+  绘制图像需注意——必须等待图像异步加载完成才能绘制：
+  var img = new Image( );
+  img.src = 'x.png';		//浏览器会开始向服务器发起HTTP请求
+  //ctx.drawImage(img, x, y);	
+  img.onload = function(){   //图片加载完成
+	//img.width 和  img.height
+	ctx.drawImage(img, x, y);   	
+  }
+
+练习：
+(1)在画布的四个角各绘制一个小飞机，中央绘制一个2倍大小的飞机
+(2)绘制一个可以随着鼠标移动的小飞机		
+   var x = 0;
+   var y = 0
+   canvas.onmousemove = function(e){
+	  x = e.offsetX 
+	  y = e.offsetY
+   }
+   setInterval(不停地的画飞机)
+
+
+5.使用Canvas绘制图像/图形时的旋转问题 —— 抽象
+  注意：
+  (1)旋转的是画笔(绘图上下文对象)！而不是画布！
+  (2)一旦画笔旋转一定角度，它绘制的所有内容都是旋转后的！
+  (3)旋转的角度有累加效应。
+  (4)旋转的轴点永远是画布的零点(0,0)！
+
+  ctx.rotate( 弧度 )		//旋转画布，绘制旋转后的图像图形
+  ctx.translate( x, y )		//把画布的零点平移到指定点，一旦平移，所有点的坐标值都要改变
+  ctx.save()				//保存当前绘图对象的所有状态
+  ctx.restore()				//恢复绘图对象上一次保存的所有状态
+
+练习：	
+(1)难度较大：在画布的四个角各有一个小飞机，绕着自己的中心在旋转
+  难点1：每次绘制一个小飞机，就要平移一次坐标零点->绘制->再平移回左上角.......
+  难点2：如何等待四个小飞机全部加载完成，才开始绘制？
+	     var progress = 0;  //图片的加载进度，每个图片加载完成则为此值 +当前图片的权重，最终若变为100，则开始绘制
+(2)绘制满画布的小星星(30个)，大小随机、位置随机		
+
+
+ 
+Canvas绘图常用的属性：
+ctx.fillStyle = '#000';
+ctx.strokeStyle = '#000';
+ctx.lineWidth = 1;
+ctx.font = '10px sans-serif';
+ctx.textBaseline = 'alphabetic';	   
+Canvas绘图常用的方法：
+//绘制矩形
+  ctx.strokeRect()
+  ctx.fillRect()
+  ctx.clearRect()
+//绘制文本
+  ctx.strokeText()
+  ctx.fillText()
+  ctx.measureText().width
+//绘制路径
+  ctx.beginPath()
+  ctx.closePath()
+  ctx.moveTo()
+  ctx.lineTo()
+  ctx.arc()
+  ctx.stroke()  /  ctx.fill()  / ctx.clip()
+//绘制图像
+  ctx.drawImage()
+  ctx.translate()
+  ctx.rotate()
+
+  ctx.save()
+  ctx.restore()	 
+
+
+6.第三方提供的绘制Canvas图表的工具库
+  提示：第三方可以简化原生Canvas绘图的代码编写！本身都不复杂，很容易自学上手！
+  (1)Chart.js —— 开源免费，提供了8种图表
+  (2)EChart.js —— 百度提供的开源免费图表工具
+  (3)FreeChart —— 开源免费
+  (4)FusionCharts —— 收费的，提供了90+种图表
+
+
+7.第三方绘制图表工具——Chart.js的使用
+  (1)查看官网介绍
+	www.chartjs.org
+	Simple yet flexible JavaScript charting。
+	1)开源
+	2)8种图表
+	3)基于Canvas
+	4)支持响应式
+
+  (2)查看示例代码——Get Started（快速入门）
+	var c = new Chart(c15, {
+    		type: 'bar',  	//统计图的类型
+    		data: {},     	//统计数据
+    		options: {}   	//图表的选项
+  	});
+  (3)查看API Document手册
+	
+
+
+课后练习：
+使用Canvas绘制一个随机改变的验证码图片——说明，真实项目验证码图片都是用后台语言生成的(如PHP)，此练习仅仅为了练习Canvas的使用
+ 	 
+var str = 'ABCDEFGHJKLMNPQRSTWXY3456789';
+var char = str[ 0~字符串长度间的随机数 ];  
+ 要求：
+	  画布背景颜色随机(浅色)  ctx.fillRect()
+文字内容随机、大小随机，颜色随机(深色)、旋转角度随机。
+	  5条随机干扰线（深色），处于文字上方。
+	  100个杂色点（半径为1为圆），处于文字上方。
+
+2.仿网易云音乐的播放界面
+   
+  点击播放按钮，碟片开始旋转，背景音乐开始播放；
+再次点击播放按钮，碟片停止旋转，背景音乐停止播放。
+
+
+
+
+
+day04
+复习：
+HTML5新特性
+(1)新的标签和属性
+(2)表单2.0
+(3)视频和音频
+(4)Canvas绘图
+(5)SVG绘图
+(6)地理定位
+(7)拖放API
+(8)WebWorker
+(9)WebStorage
+(10)WebSocket
+
+Canvas绘图：
+<canvas id="c" width="500" height="400">
+</canvas>
+var ctx = c.getContext('2d');
+//绘制矩形
+ctx.strokeRect()
+ctx.fillRect()
+ctx.clearRect()
+//绘制文本
+ctx.strokeText()
+ctx.fillText()
+ctx.measureText().width
+//绘制路径
+ctx.beginPath()
+ctx.closePath()
+ctx.moveTo()
+ctx.lineTo()
+ctx.arc()
+ctx.stroke() / fill() / clip()
+//绘制图像
+ctx.drawImage()
+//辅助方法
+ctx.translate()
+ctx.rotate()
+ctx.save()
+ctx.restore()
+
+
+Canvas属于JS绘图技术，标签只有一个，其它图形图像都是JS绘制的，不是标签——DOM树没有对应的元素对象！ —— 无法直接为每个图形/图像绑定事件监听函数！	
+
+今日目标：
+(1)SVG绘图——重点
+(2)2D绘图函数库：Two.js —— 了解
+
+
+
+ 
+位图： 由一个又一个像素点组成，每个点有自己的颜色。善于丰富的颜色细节，放大后会失真 —— 适合于照片 —— Canvas绘图就是位图
+矢量图：由一个又一个公式(描述图形/图像)组成。可以无限缩放而不失真，但颜色细节不够丰富 —— 适合于图标、图形 —— SVG绘图就是矢量图	 
+
+1.SVG绘图技术概述
+  Scalable Vector Graphic：可缩放的矢量图。
+  SVG
+	不依赖分辨率
+	每个图形都是标签
+    	容易添加事件处理
+	最适合带有大型渲染区域的应用程序（例如百度地图）
+	不适合游戏
+  Canvas
+	依赖分辨率
+	每个图形不是标签
+	不易绑定事件处理
+	能够以“.png”或“.jpg”格式保存结果图像
+	最合适图像密集型的游戏
+
+SVG技术早在2000年左右就已经存在，远早于H5标准，被HTML5纳入为标准标签了。SVG图形的使用有两种方式：
+  (1)HTML5标准之前：
+	把SVG标签书写在.svg文件中(本质是一个XML文件)，HTML文件中加以引用——使用IMG、IFRAME、EMBED、OBJECT。
+  (2)HTML5标准之后：
+	可以直接HTML文件中使用SVG相关的标签。
+	SVG标签是一个300*150的inline-block。
+
+2.使用SVG标签绘制图形——矩形
+  注意：为了给矩形指定样式，既可以使用SVG标签专用的属性，也可以使用CSS样式方式来声明。
+  <rect width="" height=""></rect>
+  可选的属性：
+	x
+	y
+	fill
+	fill-opacity
+	stroke
+	stroke-width
+	stroke-opacity
+练习：								
+(1)在画布的中央绘制一个矩形，蓝色边框4px，填充色透明；使用定时器让它从左到右晃动
+	rect.x  //非常复杂的对象，尽量不要直接操作此属性
+	rect.setAttribute('x', 100);   //使用核心DOM方法修改SVG图形的属性
+
+(2)根据如下的数据，绘制柱状图
+	[
+		{"label":"部门1", "value":350},
+		{"label":"部门2", "value":550},
+		{"label":"部门3", "value":250},
+		{"label":"部门4", "value":450}
+	]
+  注意：使用JS动态创建SVG元素，必须指定xmlns！
+document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+
+3.使用SVG标签绘制图形——圆形
+  	<circle cx="" cy="" r=""></circle>	
+  可选属性：圆形可用的属性与矩形基本类型
+  练习：
+  (1) 在SVG上绘制一个填充为0.2透明的绿色，边框为深绿色1px；鼠标悬停，半透明变为不透明；点击该圆形后，开始斜向下45度角运动，到某个边沿后反弹回来
+  (2) 点击画布上的某处，则在此处创建一个圆形，变大变淡直至消失——蜻蜓点水
+  (3) 在画布上随机创建30个圆形(大小和颜色都随机)，点击某个之后，它变大变淡，直至消失，从DOM上删除。
+
+
+4.使用SVG标签绘制图形——椭圆
+  <ellipse cx="" cy="" rx="" ry=""></ellipse>
+  练习：在SVG图形中绘制两个十字交叉的椭圆    15:52
+	 
+
+5.使用SVG标签绘制图形——直线
+	<line x1="" y1=""  x2="" y2="" stroke=""></line>
+  提示：line标签没有fill相关属性，只有stroke系列属性
+  练习：绘制如下的图标			16:15
+	 
+ 
+<g></g> 表示一个图形组，小组本身没有外观样式，用于包含多个相关的图形，可以在g声明公共的属性值，每个组员自动继承属性值。	 
+
+6.使用SVG标签绘制图形——折线
+  <polyline points="x1,y1  x2,y2  x3,y3 ...."  stroke=""  fill="transparent"></polyline>
+  练习：使用折线绘制如下的星星路径
+	 
+
+7.使用SVG标签绘制图形——多边形
+  <polygon points="x1,y1  x2,y2  x3,y3 ...."></polygon>
+  练习：使用多边形绘制如下的图标	
+	 
+  提示：为了统一控制两个多边形的样式，最好使用<g></g>
+
+8.使用SVG标签绘制图形——文本
+	<text x="" y="">文本内容</text>
+  提示：SVG中的文字可以在DOM树上查看到，可以被搜索引擎的爬虫机器人检索到，可以提高网页的相关查询的排名。
+
+9.使用SVG标签绘制图形——图像
+   	<image xlink:href="" width="" height=""></image>
+  提示：SVG中使用了位图，则放大后也会失真。
+
+10.使用SVG标签绘制贝塞尔曲线
+	<path></path>
+  
+
+11.在SVG中使用渐变色				
+  在特效对象中声明一个渐变对象
+  <defs>
+	<linearGradient id="g" x1="" y1="" x2="" y2="">
+		<stop offset="50%" stop-color="#f00"></stop>
+	</linearGradient>
+  </defs>
+	var canvas = document.getElementById("c1").getContext("2d");
+    var grad = canvas.createLinearGradient(0, 0, 100, 0);
+    grad.addColorStop(0, 'red');
+    grad.addColorStop(1, 'blue');
+    canvas.fillStyle = grad;
+    canvas.fillRect(0, 0, 100, 100);
+  在填充色/描边色时使用渐变对象
+  <rect fill="url(#g)"></rect>
+
+
+12.在SVG中使用滤镜——模糊滤镜——高斯模糊 —— 了解
+  在特效对象中声明一个滤镜对象
+  <defs>
+	<filter id="f">
+		<feGaussianBlur stdDeviation="3"/>
+	</filter>
+  </defs>
+  在创建图形使用滤镜对象
+  <text filter="url(#f)"></text >
+
+
+课后练习：
+从后台PHP获取如下的JSON数据：
+	[
+		{"label":"HTML",value:3}, 
+		{"label":"CSS",value:5},
+		....
+	]
+根据这段JSON字符串，绘制下图：
+ 
+图形刚一呈现时，每个柱子高度需要从0开始慢慢变高。
+每个柱子悬停时边框变粗/颜色变深。
+
+
+
+2)自学two.js工具的使用，理解其作用，仿写官方示例代码，学会使用方法，实现如下效果：
+   
+
+
+
+
+
+
+day05
+复习：
+HTML5新特性：			优先级
+(1)新的标签和属性			10
+(2)表单新特性				7
+(3)视频和音频				9
+(4)Canvas绘图——位图		10
+(5)SVG绘图——矢量图		10
+  svg、rect、circle、ellipse、line、polyline、polygon、text、image、path
+(6)地理定位				2
+(7)拖放API				5
+(8)WebWorker				4
+(9)WebStorage			10
+(10)WebSocket			3
+
+今日目标：
+(1)地理定位 —— 了解
+(2)拖放API —— 稍难&掌握
+
+
+1.补充：第三方绘图工具库的使用——Two.js
+  (1)找到官网，看官方的定义
+	https://two.js.org/
+	Two.js is a two-dimensional drawing api geared towards modern web browsers. It is renderer agnostic enabling the same api to draw in multiple contexts: svg, canvas, and webgl.
+	是一个2D绘图函数库，用于浏览器，底层可以是SVG、Canvas或WebGL。
+	 
+
+  (2)找示例程序，写出demo
+	 
+  (3)使用API Document，编写自己的应用
+	 
+  上述代码完成则“获得工作”！
+
+
+2.HTML5新特性之六 —— 地理定位
+  Geolocation：用于获得当前浏览器所在的地理坐标，从而提供LBS（Location Based Service），如送餐、打车、导航。包括如下数据：
+	经度： longitude
+	纬度： latitude
+	海拔高度： altitude
+	速度： speed
+浏览器如何获得上述数据：
+(1)手机浏览器：
+	首先尝试使用内置GPS数据——精度以米为单位
+ 	再则使用手机基站编号反向推导出对应的地理位置——定位精度以公里为单位
+(2)PC浏览器：
+	通过电脑的IP地址反向查询——精度以公里为单位
+
+HTML5中如何获取浏览器所在的地理定位信息：
+  window.navigator.geolocation {
+	getCurrentPosition: fn	//获取当前定位数据
+	watchPosition: fn		//监视定位数据
+	clearWatch: fn			//清除定位监视
+  }
+演示：如何获取当前的定位信息：
+  navigator.geolocation.getCurrentPosotion(
+	function(pos){
+		console.log('定位数据获取成功');
+		//pos.coords.longtitude ....
+	}, 
+	function(err){
+		console.log('定位数据获取失败');
+		//err.code   err.message
+	}
+)
+
+2.课外扩展：使用百度地图API——第三方地图的使用
+  (1)打开官网，找定义，功能说明
+	http://lbsyun.baidu.com/
+	可以基于百度地图进行Android、iOS、Web应用开发
+	http://lbsyun.baidu.com/index.php?title=jspopular
+
+  (2)找示例程序
+	 
+
+  (3)找API文档，编写自己的应用
+
+
+使用百度地图API步骤：
+(1)注册百度开发者账号
+(2)使用开发者账号申请创建一个Web应用账号，获取一个访问百度地图的密钥（AccessKey）
+	http://lbsyun.baidu.com/apiconsole/key
+	   
+(3)编写HTML网页，出示当前网站的访问密钥，调用百度地图API
+  <script src="http://api.map.baidu.com/api?v=2.0&ak=您的网站在百度地图申请的访问秘钥 ">
+  </script>
+
+  //创建地图实例    
+  var map = new BMap.Map("container");
+  //创建一个指定的点 —— 文博大厦
+  var p = new BMap.Point(116.300982,39.915907);
+  //以指定点为中心显示地图
+  map.centerAndZoom(p, 17);
+
+
+4.HTML5新特性之七 —— 拖放API —— 稍难&掌握
+  Drag：拖动
+  Drop：释放
+  在HTML5之前只能使用鼠标事件模拟出“拖放”效果；HTML5专门为拖放提供了7个事件句柄。
+	 
+  被拖动的源对象可以触发的事件：
+	(1)ondragstart：源对象开始被拖动
+	(2)ondrag：源对象被拖动过程中(鼠标可能在移动也可能未移动)
+	(3)ondragend：源对象被拖动结束
+  拖动源对象可以进入到上方的目标对象可以触发的事件：
+	(1)ondragenter：目标对象被源对象拖动着进入
+	(2)ondragover：目标对象被源对象拖动着悬停在上方
+	(3)ondragleave：源对象拖动着离开了目标对象
+	(4)ondrop：源对象拖动着在目标对象上方释放/松手
+  注意：必须组织dragover事件的默认行为，才可能触发drop事件！
+练习：
+(1)实现一个可以随着鼠标拖动而移动的小飞机
+  提示：飞机必须绝对定位；ondrag事件处理中获取事件发生的坐标值。
+(2)拖动着某个小飞机到垃圾桶上方时，垃圾桶由半透明变为不透明；当拖动着离开 或 在上方释放 垃圾桶又变为半透明；
+(3)总共显示三个小飞机，拖动着某个小飞机到垃圾桶上方后，小飞机从DOM树上删除					
+
+5.如何在拖动的源对象事件和目标对象事件间传递数据
+  HTML5为所有的拖动相关事件提供了一个新的属性：
+	e.dataTransfer {		//数据传递对象——作用相当于拖拉机
+	}
+  用于在源对象和目标对象的事件间传递数据，
+  源对象上的事件处理中保存数据：
+	e.dataTransfer.setData( k,  v );     //k-v必须都是string
+  目标对象上的事件处理中读取数据：
+	var v = e.dataTransfer.getData( k );
+
+
+课后练习： 英雄选择
+ 
+要求：
+	拖动某架飞机到目标区域，则在上方显示出该飞机；下方该飞机图消失；替换选中区域已有的飞机。
+	拖动另一架飞机到目标区域，则显示出该飞机，之前选中的飞机变为重新回到待选区域。
+
+
+
+
+
+day06
+复习：
+HTML5新特性：
+(1)新的元素和属性
+(2)表单新特性
+(3)视频和音频
+(4)Canvas绘图
+(5)SVG绘图
+(6)地理定位
+	navigator.geolocation {
+		getCurrentPosition(
+				function(pos){},
+				function(err){}
+		)
+	}
+(7)拖放API
+(8)WebWorker
+(9)WebStorage
+(10)WebSocket
+
+
+API：Application Programming Interface，即一个组件、框架、系统等为外界提供调用接口，可能是一个函数、对象、URL等，需要特定形式的参数，返回特性形式的返回值。
+
+HTML5提供的拖放API：
+源对象可以触发的事件(3)：
+	ondragstart
+	ondrag
+	ondragend
+目标对象可以触发的事件(4)：
+	ondragenter
+	ondragover(e){ e.preventDefault() }
+	ondragleave
+	ondrop
+源对象和目标对象事件间传递数据
+	(1)使用全局变量 —— 污染全局对象
+ 	(2)使用e.dataTransfer.setData()/getData()
+
+注意：setData( k, v )，W3School中说明k只能是几种可能之一：text/plain、text/html、application/xxx，但实测Chrome、FF中k可以为任意字符串。
+
+
+今日目标：
+(1)补充课外知识点 —— 了解
+(2)Web Worker —— 代码简单&理论复杂
+(3)Web Storage —— 重点
+
+
+1.关于拖放API的补充知识点（面试题）：如何在网页中显示客户端的一张图片？如何拖动客户端的网页显示在服务器端下载的页面中？
+  div.ondrop = function(e){
+	var f = e.dataTransfer.files[0];	//找到拖放的文件
+	var fr = new FileReader();	//创建文件读取器
+	fr.readAsDataURL(f);		//读取文件内容
+	fr.onload = function(){		//读取完成
+		img.src = fr.result;		//使用读取到的数据
+	}
+  }						
+
+ 
+HTML5新增的文件操作对象：
+File： 代表一个文件对象
+FileList： 代表一个文件列表对象，类数组
+FileReader：用于从文件中读取数据
+FileWriter：用于向文件中写出数据	 
+
+
+2.面试题：Chrome中的线程模型是怎样的？请阐述浏览器如何加载并渲染网页内容？浏览器先下载CSS、JS、图片？
+  程序：Program，可以被计算机执行的代码，保存在磁盘中
+  进程：Process，代码从磁盘中调入内存，分配的空间，开始执行
+  线程：Thread，进程内的可执行代码被CPU调度开始执行
+	 
+  进程和线程的关系：
+  (1)进程是操作系统分配内存的基本单位。
+  (2)线程是执行代码(生产任务)的基本单位。
+  (3)线程必须处于进程内部，使用其中的内存。
+  (4)进程内部必须至少有一个线程，也可以并存有多个。
+  (5)多个线程是并发执行（宏观上看是同时执行，微观上看是先后间断性执行）。
+
+Chrome中的线程执行模型：
+  (1)创建了Chrome.exe进程，至少启动6个线程，并发执行用于向Web服务器发起HTTP请求——出去买菜。
+  (2)在渲染网页的内容时，Chrome只允许使用1个线程——UI渲染主线程——若多个线程同时渲染，会导致布局错乱——开始做饭；
+  (3)Chrome中请求资源可以使用6个并发线程，执行HTML、CSS、JS所有的代码只有1个线程——不可能出现两个函数同时执行的情形。
+
+
+
+3.HTML5新特性之八 —— WebWorker —— 代码简单&原理复杂
+  假设有如下代码：
+  <button onclick="console.log(111)">按钮1</button>
+  <script src="js/4.js"></script>
+  <button onclick="console.log(222)">按钮2</button>
+  4.js很耗时的情况下，button2无法快速呈现，button1的事件监听也无法立即执行——根源：UI渲染主线程只有1个，被4.js长时间占用！
+  如何从根本上解决JS任务耗时的问题——创建一个新的执行线程，由它来执行耗时的JS任务，不占用UI主渲染线程！
+  var w = new Worker('x.js');  //主线程分出一个工作线程
+
+Worker线程的致命缺陷：不能执行任何DOM操作！不能使用任何的DOM元素！连window对象都无法使用！——浏览器只允许一个UI主线程来操作DOM！
+
+由于上述限制，一般的JS文件（如jquery.js）都不能使用Worker来加载。一般只有需要执行耗时算法的JS任务才需要使用Worker。
+
+Worker线程给UI主线程发消息：
+	UI主线程中：
+		var w6 = new Worker('x.js');
+		w6.onmessage = function(e){  e.data  }
+Worker线程中：
+		postMessage( 'StringMessage' );
+UI主线程给Worker线程发消息：
+	UI主线程中：
+		var w7 = new Worker('x.js');
+		w7.postMessage('StringMessage');
+ 	Worker线程中：
+		onmessage = function(e){   e.data  }
+练习：实现一个完整的  质数判定 ：
+	(1)用户在输入框中输入数字，开始质数判定运算
+	(2)创建新的Worker线程，进行计算
+	(3)完成后，Worker线程需要计算结果反传给UI主线程
+
+
+4.HTML5新特性之九 —— WebStorage —— 重点&效果很好！
+  项目中的数据保存在哪儿？
+  保存在服务器端——如商品、评论、用户、新闻等——业务数据：
+	数据存储于数据库，使用后台语言加以读取
+  保存在客户端——如浏览历史、内容定制、自动登录等——用户数据：
+	(1)Cookie：兼容性好，操作复杂，数据量有限(4k) 
+	(2)Flash：依赖于Falsh播放器
+	(3)HTML5 WebStorage：H5新特性，操作简单，数据量够大(8M)
+	(4)IndexedDB：操作简单、数据量无限制、不是H5标准技术
+	(5)FileAPI：功能强大，以文件方式操作数据
+提示：在Chrome F12的Resources中可以查看到上述数据。
+
+
+ 
+Web中的Session(回话)：指浏览器从打开某个网站开始，不论访问多少个页面，一直是同一个回话，直到浏览器窗口关闭，回话结束。	 
+
+5.HTML5新特性之WebStorage技术         
+HTML5中提供了两个相关对象：
+window.sessionStorage：会话级存储，把数据存在浏览器进程所分配的内存中，只要浏览器不关闭，数据一直存在——可以实现跨页面使用数据
+		sessionStorage['key'] = value;		//存数据
+		sessionStorage.setItem(k, v);		//存数据
+		var v = sessionStorage.getItem(k);	//取数据
+		var v = sessionStorage['key'];		//取数据
+		sessionStorage.length			//数据的个数
+		sessionStorage.removeItem(k);	//删除数据
+		sessionStroage.clear();			//清除所有数据
+提示：sessionStorage用于在同一个会话的不同页面间共享数据
+练习：			
+(1)创建一个index.html，上方有个超链接：<a href="login.html">登录</a>，若当前用户已经登录了，此处要显示：欢迎回来：xxx <a href="logout">注销登录</a>
+(2)创建一个login.html，输入用户名和密码，假设验证成功，保存登录用户名，跳转回首页。
+(3)创建一个logout.html，删除登录信息，提示当前用户已经退出登录，3s后跳转回首页。
+要求：若用户当前已经登录了，则强行访问login.html的话，直接跳转到首页。			
+
+window.localStorage：本地存储/跨会话级存储，把数据存在客户端磁盘文件中，数据一直存在，即使关机重启系统——可以实现跨会话共享数据
+  		localStorage['key'] = value;		//存数据
+		var v = localStorage['key'];		//取数据
+		localStorage.setItem(k, v);		//存数据
+		var v = localStorage.getItem(k);	//取数据
+		localStorage.length				//数据的个数
+		localStorage.removeItem(k);		//删除数据
+		localStorage.clear();				//清除所有数据
+
+练习：实现页面主题定制				17:54
+(1)创建index.html，网页主题选择下拉框，“青青岁月”、“芭比公主”、“杀马特”，随着选项改变，当前页面body元素的class名随之改变，当前页面的文字颜色、背景颜色都改变
+(2)创建usercenter.html，打开后body也会自动应用上一页面所选中的class主题；即使浏览器重启，再看此页面也会呈现用户之前选中的主题。
+提示：若之前选择过某个主题，再次访问任何一个页面都应该显示出之前选中的主题
+
+
+
+
+
+
+day07
+复习：
+见思维导图
+
+
+今日目标：
+(1)HTML5新特性之——WebSocket —— 了解
+(2)HTML5阶段项目
+
+
+
+1.补充小知识点：如何监听localStorage中数据的改变？
+ 只要localStorage中的任一数据发生改变，就触发如下事件：
+ window.onstorage = function(){
+ }
+ 注意：上述事件不能用于监听sessionStorage数据的改变！
+
+2.WebSocket概述
+  HTTP协议的限制：基于“请求-响应”模型的协议，一个请求回得到一个响应，没有请求就没有响应。有些特殊的应用中，如在线股票、在线聊天室等，该特性就会产生问题。
+  心跳请求：使用定时器每隔n秒钟异步请求一次服务器端数据。心跳过慢则数据有延迟，心跳过快服务器压力过大。
+
+  WebSocket协议：基于“广播-收听”模型的协议，只要客户端连接到服务器上，就一直保持连接，一方可以不停的发消息，对方不停的接收。WS协议的限制：客户端和服务器是永久连接，而服务器可以同时保持的连接数是有限的。
+  
+  WebSocket应用需要编写服务器端和客户端：
+  WebSocket服务器端：
+	使用纯PHP、Java、Node.js等编写——不依赖于Apache，独立运行，启用WS协议专用端口。如果服务器用PHP编写：
+	1)修改php.ini文件：907行，启用extension=php_sockets.dll
+	2)c:/xampp/php/php.exe   d:/socket_server.php
+  WebSocket客户端：
+	1)编写专用的使用WS的应用程序，如C++、Java、PHP等
+	2)支持HTML5新特性的浏览器——WS协议
+	   var ws = new WebSocket("ws://127.0.0.1:9999");
+	   ws.send('发送的消息');
+	   ws.onmessage = function(e){
+	   	//接收到的消息  e.data;
+        }					
+
+
+3.京东项目主要页面
+  (1)首页
+  (2)产品列表页
+  (3)产品详情页
+  (4)查看购物车
+  (5)确定下单生成订单
+  (6)用户中心查看订单/消费统计/幸运抽奖
+  (7)注册/登录
+
+4.HTML5阶段项目——京东用户中心
+  所用技术： 
+	MySQL、PHP、AJAX、jQuery
+	表单2.0、视频、Canvas、SVG、本地存储
+
+  实现步骤：
+	(1)创建PHP，user_add.php，接收客户端提交的uname和upwd，保存入数据库，返回{"code": 1, "msg":"succ"}或{"code":2, "msg":"err", "sql":"..."}
+	(2)创建HTML，register.html，实现异步的用户注册
+	(3)修改productlist.html和shoppingcart.html，登录成功后，用户名和用户ID使用sessionStorage保存，每个页面顶部都可以显示“欢迎回来：xxxx”；且登录之后刷新页面不会要求用户再次登录。		
+	(4)创建HTML，addorder.html，异步请求页头和页尾，主体中显示当前登录用户的购物车内容。
+	(5)修改SQL，添加订单表：
+	  jd_order(oid, rcvName, addr, payment(INT), price, orderTime, status, userId)
+	  jd_order_detail(did, orderId, productId, count)
+	  插入若干测试数据
+	(6)创建PHP，order_add.php，接收客户端提交的订单信息，生成订单，删除购物车中上述商品，返回{"code":1, "msg":"succ","orderId":15} 或 {"code":2, "msg":"err", "sql":"..."}
+-------------------------------------------------------
+	(7)修改HTML，addorder.html，异步提交订单信息，获取订单编号，生成成功，跳转到addorder_result.html，显示出订单生成的结果。
+	(8)创建HTML，usercenter.html，实现附加导航的切换
+  	(9)创建PHP，order_select.php，根据客户端提交的用户名，查询出该用户所有的订单，返回的数据形如：[ {oid:xx, rcvName:xx, addr:xx ... userId:xx, productList:[{},{}] },   {},{}  ]
+	(10)修改HTML，usercenter.html，页面加载完成后，异步请求当前登录用户的所有订单，拼接在TABLE元素中
+
+
+
+
+
+
+
+
+
+
+
+
+
+
